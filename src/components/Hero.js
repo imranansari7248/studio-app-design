@@ -6,62 +6,6 @@ import { AiOutlineClose } from "react-icons/ai";
 
 const Hero = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-
-  const toggle = () => setIsOpen(!isOpen);
-
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth < 768) {
-        setIsMobile(true);
-      } else {
-        setIsMobile(false);
-      }
-    };
-    handleResize();
-    window.addEventListener("resize", handleResize);
-  }, []);
-
-  const desktopMenu = (
-    <div className="flex flex-col space-y-10 px-3 py-4 md:flex-row md:space-x-10 md:space-y-0">
-      <a href="#features" className="hover:text-blue-200">
-        About
-      </a>
-      <a href="#features" className="hover:text-blue-200">
-        Careers
-      </a>
-      <a href="#features" className="hover:text-blue-200">
-        Events
-      </a>
-      <a href="#features" className="hover:text-blue-200">
-        Products
-      </a>
-      <a href="#features" className="hover:text-blue-200">
-        Support
-      </a>
-    </div>
-  );
-
-  const mobileMenu = (
-    <div
-      className={`px-4 py-2 text-2xl ${
-        isOpen
-          ? " bg-black bg-opacity-75 absolute top-0 right-0 z-10 w-2/3 h-fll flex flex-col space-y-10 items-center justify-center text-xl"
-          : ""
-      }`}
-    >
-      {!isOpen ? (
-        <button className="hover:text-blue-600" onClick={toggle}>
-          <GiHamburgerMenu />
-        </button>
-      ) : (
-        <button className="hover:text-blue-600" onClick={toggle}>
-          <AiOutlineClose />
-        </button>
-      )}
-      {isOpen && desktopMenu}
-    </div>
-  );
 
   return (
     <section id="hero">
@@ -91,7 +35,31 @@ const Hero = () => {
               <div className="mx-2 group-hover:border-b group-hover:border-blue-50 duration-200"></div>
             </div>
           </div>
+
+          <div className="md:hidden">
+            <button className={`${isOpen && 'open'} z-40 block hamburger focus:outline-none`} onClick={() => setIsOpen(!isOpen)}>
+              <span className="hamburger-top"></span>
+              <span className="hamburger-middle"></span>
+              <span className="hamburger-bottom"></span>
+            </button>
+          </div>
         </nav>
+
+        <div className={`${isOpen ? 'block' : 'hidden'} absolute top-0 left-0 w-full h-screen bg-gray-900 bg-opacity-90 z-30`}>
+          <div className="flex flex-col items-center justify-center h-full">
+            <div className="flex flex-col space-y-8">
+              <a href="#" className="text-4xl font-bold text-white">About</a>
+              <a href="#" className="text-4xl font-bold text-white">Carees</a>
+              <a href="#" className="text-4xl font-bold text-white">Events</a>
+              <a href="#" className="text-4xl font-bold text-white">Products</a>
+              <a href="#" className="text-4xl font-bold text-white">Support</a>
+            </div>
+            <div className="flex items-center justify-center mt-8">
+              <button className="btn">Contact Us</button>
+            </div>
+          </div>
+        </div>
+        
 
         <div className="max-w-lg text-white text-4xl font-normal border-2 border-white p-4 mt-32 mb-32 md:p-10 md:m-32 md:text-6xl md:mx-0">
           IMPRESSIVE EXPERIENCES THAT DELIVER
